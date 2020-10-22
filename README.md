@@ -259,13 +259,15 @@ I borrowed its code of the criteria for choosing Essential or Homography (for de
 * `sudo apt-get install libsuitesparse-dev libgl1-mesa-dev libglew-dev libegl1-mesa-dev libwayland-dev libxkbcommon-dev wayland-protocols libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev`
 * install sophus from source `see3 /usr/local/irg && make install`, it is HEADER-only, so nothing to link against
 * install g2o 20170730_git tag `see3 /usr/local/irg/ && make install`
+  * update the CMakeLists.txt turn off march native
+    * `OPTION (BUILD_WITH_MARCH_NATIVE "Build with \"-march native\"" OFF)`
 * install opencv 4.0.0 from source roughly following https://www.pyimagesearch.com/2018/08/15/how-to-install-opencv-4-on-ubuntu/
-cmake -D CMAKE_BUILD_TYPE=RELEASE \
-  -D CMAKE_INSTALL_PREFIX=/usr/local/irg \
-  -D INSTALL_PYTHON_EXAMPLES=ON \
-  -D INSTALL_C_EXAMPLES=OFF \
-  -D OPENCV_ENABLE_NONFREE=ON \
-  -D OPENCV_EXTRA_MODULES_PATH=~/Dev/jim/opencv_contrib/modules \
-  -D PYTHON_EXECUTABLE=PYTHON_EXECUTABLE=/usr/local/home/cyan3/Dev/ames/viper_virtualenv/bin/python \
-  -D BUILD_EXAMPLES=ON ..
-make -j4 && make install
+  * `cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/usr/local/irg \
+    -D INSTALL_PYTHON_EXAMPLES=ON \
+    -D INSTALL_C_EXAMPLES=OFF \
+    -D OPENCV_ENABLE_NONFREE=ON \
+    -D OPENCV_EXTRA_MODULES_PATH=~/Dev/jim/opencv_contrib/modules \
+    -D PYTHON_EXECUTABLE=PYTHON_EXECUTABLE=/usr/local/home/cyan3/Dev/ames/viper_virtualenv/bin/python \
+    -D BUILD_EXAMPLES=ON ..`
+* `make -j4 && make install`
