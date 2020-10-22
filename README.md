@@ -257,7 +257,8 @@ I borrowed its code of the criteria for choosing Essential or Homography (for de
 # 8. 2020-10 notes
 
 * `sudo apt-get install libsuitesparse-dev libgl1-mesa-dev libglew-dev libegl1-mesa-dev libwayland-dev libxkbcommon-dev wayland-protocols libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev`
-* install sophus from source `see3 /usr/local/irg && make install`, it is HEADER-only, so nothing to link against
+* install sophus from source `see3 /usr/local/irg && make install`
+  * it is HEADER-only, so nothing to link against
 * install g2o 20170730_git tag `see3 /usr/local/irg/ && make install`
   * update the CMakeLists.txt turn off march native
     * `OPTION (BUILD_WITH_MARCH_NATIVE "Build with \"-march native\"" OFF)`
