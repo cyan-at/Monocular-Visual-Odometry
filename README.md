@@ -271,4 +271,4 @@ I borrowed its code of the criteria for choosing Essential or Homography (for de
     -D OPENCV_EXTRA_MODULES_PATH=~/Dev/jim/opencv_contrib/modules \
     -D PYTHON_EXECUTABLE=PYTHON_EXECUTABLE=/usr/local/home/cyan3/Dev/ames/viper_virtualenv/bin/python \
     -D BUILD_EXAMPLES=ON ..`
-* `make -j4 && make install`
+  * `make -j4 && make install`
