@@ -24,11 +24,14 @@ set (CMAKE_CXX_FLAGS "-DPCL_ONLY_CORE_POINT_TYPES=ON -DNO_EXPLICIT_INSTANTIATION
 # Eigen
 include_directories( "/usr/include/eigen3" )
 # OpenCV
-find_package( OpenCV 3.4 REQUIRED )
+find_package( OpenCV 4.0 REQUIRED ) # you NEED 4.0 to use a function
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 # Sophus 
 find_package( Sophus REQUIRED )
-include_directories( ${Sophus_INCLUDE_DIRS} )
+
+include_directories( "/usr/local/irg/include/" ) # to find installed HEADER ONLY sophus
+# include_directories( ${Sophus_INCLUDE_DIRS} )
+
 # G2O
 list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules )
 find_package( G2O REQUIRED )
@@ -40,12 +43,18 @@ find_package( PCL REQUIRED )
 include_directories( ${PCL_INCLUDE_DIRS} )
 add_definitions( ${PCL_DEFINITIONS} )
 
+link_directories(/usr/local/irg/lib/)
+# to find installed g2o so files
+
 # Combine the above libraries
 set( THIRD_PARTY_LIBS 
     ${OpenCV_LIBS}
     ${PCL_LIBRARIES}
-    ${Sophus_LIBRARIES} # If "make install" is good, use this line
-    libSophus.so # If "make install" failed, copy files manully to usr/lib and usr/include, and use this line
+
+    # SOPHUS IS HEADER ONLY
+    # ${Sophus_LIBRARIES} # If "make install" is good, use this line
+    # libSophus.so # If "make install" failed, copy files manully to usr/lib and usr/include, and use this line
+
     g2o_core g2o_stuff g2o_types_sba g2o_csparse_extension
     ${CSPARSE_LIBRARY}
 )
