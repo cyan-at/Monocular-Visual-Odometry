@@ -7,10 +7,13 @@
 
 #include "my_slam/common_include.h"
 
-namespace my_slam
-{
-namespace basics
-{
+// for working with rotmatrices and quaternions
+#include "my_slam/geometry/Matrix3x3.hpp"
+#include "my_slam/geometry/Quaternion.hpp"
+
+namespace my_slam {
+
+namespace basics {
 
 // ---------------- image operation ----------------
 vector<unsigned char> getPixelAt(const cv::Mat &image, int x, int y);
@@ -29,8 +32,9 @@ void invRt(cv::Mat &R, cv::Mat &t);
 cv::Mat convertRt2T(const cv::Mat &R, const cv::Mat &t);
 cv::Mat convertRt2T_3x4(const cv::Mat &R, const cv::Mat &t);
 void getRtFromT(const cv::Mat &T, cv::Mat &R, cv::Mat &t);
-cv::Mat getPosFromT(const cv::Mat &T);
+cv::Mat getPosFromT(const cv::Mat& T);
 cv::Point3f preTranslatePoint3f(const cv::Point3f &p3x1, const cv::Mat &T4x4);
+void getQuaternion(const cv::Mat& T, Quaternion* res);
 
 // ---------------- Math ----------------
 cv::Mat skew(const cv::Mat &t); // 3x1 vec to 3x3 skew symmetric matrix
@@ -40,6 +44,7 @@ double scalePointPos(cv::Point3f &p, double scale);
 double calcMatNorm(const cv::Mat &mat);
 cv::Mat getNormalizedMat(const cv::Mat mat);
 double calcAngleBetweenTwoVectors(const cv::Mat &vec1, const cv::Mat &vec2);
+
 
 // ---------------- Print ----------------
 void print_MatProperty(const cv::Mat &M); // print data type and size

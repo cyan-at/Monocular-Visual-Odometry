@@ -10,12 +10,11 @@
 #include <unistd.h> // access
 #include <stdlib.h> // access
 
-namespace my_slam
-{
-namespace basics
-{
-bool str2bool(const string &s)
-{
+namespace my_slam {
+
+namespace basics {
+
+bool str2bool(const string &s) {
     if (s == "true" || s == "True")
     {
         return true;
@@ -31,15 +30,13 @@ bool str2bool(const string &s)
     }
 }
 
-string int2str(int num, int width, char char_to_fill)
-{
+string int2str(int num, int width, char char_to_fill) {
     std::stringstream ss;
     ss << std::setw(width) << std::setfill(char_to_fill) << num;
     return ss.str();
 }
 
-vector<double> str2vecdouble(const string &pointLine)
-{
+vector<double> str2vecdouble(const string &pointLine) {
     std::istringstream iss(pointLine);
 
     return vector<double>{
@@ -47,8 +44,7 @@ vector<double> str2vecdouble(const string &pointLine)
         std::istream_iterator<double>()};
 }
 
-vector<int> getIntersection(vector<int> v1, vector<int> v2)
-{
+vector<int> getIntersection(vector<int> v1, vector<int> v2) {
     int comb_len = v1.size() + v2.size();
     vector<int> v(comb_len);
     vector<int>::iterator it;
@@ -60,8 +56,7 @@ vector<int> getIntersection(vector<int> v1, vector<int> v2)
     return v;
 }
 
-bool makedirs(const string &dir)
-{
+bool makedirs(const string &dir) {
     const char *sPathName = dir.c_str();
     char DirName[256];
     strcpy(DirName, sPathName);

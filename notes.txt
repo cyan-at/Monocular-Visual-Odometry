@@ -73,6 +73,40 @@ __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
     at /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.3.2
 
 #########################################################
+
+
+        produce_vo_data_srv_ = ros_node_handle_.advertiseService(
+            "produce_vo_data", &VOROS1Wrapper::produce_vo_data, this);
+
+        g_world_camera_publisher_ = ros_node_handle_.advertise<
+            geometry_msgs::PoseStamped>(
+            "mvo_cam_pose", 1);
+        g_world_camera_msg_.header.frame_id="/world";
+
+        // initialize pose_stamped with no rotation at origin
+        g_world_camera_msg_.pose.position.x = 0.0;
+        g_world_camera_msg_.pose.position.y = 0.0;
+        g_world_camera_msg_.pose.position.z = 0.0;
+        g_world_camera_msg_.pose.orientation.w = 1.0;
+        g_world_camera_msg_.pose.orientation.x = 0.0;
+        g_world_camera_msg_.pose.orientation.y = 0.0;
+        g_world_camera_msg_.pose.orientation.z = 0.0;
+
+
+    bool produce_vo_data(
+        std_srvs::TriggerRequest& request,
+        std_srvs::TriggerResponse& response) {
+
+        // Save camera trajectory
+        const string save_predicted_traj_to =
+            "/home/cyan3/Dev/jim/Monocular-Visual-Odometry/cam_traj.txt";
+        vo::writePoseToFile(save_predicted_traj_to, *cam_pose_history_, true);
+
+        response.success = true;
+        response.message = "produce_vo_data saved";
+        return true;
+    }
+
 #########################################################
 #########################################################
 #########################################################
