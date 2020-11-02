@@ -34,6 +34,9 @@ add_library( vo SHARED
     vo/vo_commons.cpp
 )
 
+add_library( ros1 SHARED
+    ros1/posestamped_publisher.cpp
+)
 
 target_link_libraries( basics
     ${THIRD_PARTY_LIBS} 
@@ -55,6 +58,10 @@ target_link_libraries( vo
     ${THIRD_PARTY_LIBS} geometry basics optimization
 )
 
+target_link_libraries( ros1
+    ${roscpp_LIBRARIES}
+    ${geometry_msgs_LIBRARIES}
+)
 
 # add_executable(main main.cpp)
 # target_link_libraries( main
