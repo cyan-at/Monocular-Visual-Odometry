@@ -1,0 +1,93 @@
+
+
+#########################################################
+
+so i rebuild boost -> cv_bridge -> MVO against opencv 4
+
+  but there are issues with different libboosts lying around? 
+
+#########################################################
+
+turns out i don't need to rebuild boost, 'default' boost to build cv_bridge
+
+  but something linked against still uses 'opencv-3.2.0+dfsg'
+
+  ../bin/run_vo_ros1 ../config/config.yaml 
+  hello!!! ../config/config.yaml
+
+
+  =============================================
+  Start processing the 0th image.
+  creating ORB
+  detecting orb
+  OpenCV Error: Bad argument (Unknown interpolation method) in resize, file /build/opencv-L2vuMj/opencv-3.2.0+dfsg/modules/imgproc/src/imgwarp.cpp, line 3367
+  terminate called after throwing an instance of 'cv::Exception'
+    what():  /build/opencv-L2vuMj/opencv-3.2.0+dfsg/modules/imgproc/src/imgwarp.cpp:3367: error: (-5) Unknown interpolation method in function resize
+
+#########################################################
+
+if we build with opencv 3.2, we don't get that issue anymore and it runs ok (no filterHomographyDecompByVisibleRefpoints)
+
+so we define the filterHomographyDecompByVisibleRefpoints explicitly
+instead of relying on opencv 4.x for it
+
+and everything really seems to work fine
+
+and water-throug-pipes MVO
+
+#########################################################
+
+ROS1 integration:
+
+publish geometry_msgs PoseStamped for cam pose trajectory
+
+#########################################################
+
+stitching together point-cloud from trajectory + scans
+
+#########################################################
+
+Bundle adjustment finishes... 
+
+Wrt prev keyframe, relative dist = 0.05591, angle = 0.06694
+OpenCV Error: Assertion failed (E.cols == 3 && E.rows == 3) in decomposeEssentialMat, file /build/opencv-L2vuMj/opencv-3.2.0+dfsg/modules/calib3d/src/five-point.cpp, line 628
+terminate called after throwing an instance of 'cv::Exception'
+  what():  /build/opencv-L2vuMj/opencv-3.2.0+dfsg/modules/calib3d/src/five-point.cpp:628: error: (-215) E.cols == 3 && E.rows == 3 in function decomposeEssentialMat
+
+
+Thread 1 "run_vo_ros1" received signal SIGABRT, Aborted.
+__GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+51      ../sysdeps/unix/sysv/linux/raise.c: No such file or directory.
+(gdb) bt
+#0  0x00007ffff51d0f47 in __GI_raise (sig=sig@entry=6)
+    at ../sysdeps/unix/sysv/linux/raise.c:51
+#1  0x00007ffff51d28b1 in __GI_abort () at abort.c:79
+#2  0x00007ffff5827957 in  () at /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#3  0x00007ffff582dae6 in  () at /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x00007ffff582db21 in  () at /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#5  0x00007ffff582dd54 in  () at /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+#6  0x00007ffff5ce48a2 in cv::error(cv::Exception const&) ()
+    at /usr/lib/x86_64-linux-gnu/libopencv_core.so.3.2
+#7  0x00007ffff5ce49bf in cv::error(int, cv::String const&, char const*, char const*, int) () at /usr/lib/x86_64-linux-gnu/libopencv_core.so.3.2
+#8  0x00007ffff64dde89 in cv::decomposeEssentialMat(cv::_InputArray const&, cv::_OutputArray const&, cv::_OutputArray const&, cv::_OutputArray const&) ()
+    at /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.3.2
+
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
+#########################################################
